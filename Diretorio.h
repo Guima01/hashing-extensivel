@@ -12,12 +12,12 @@ class Diretorio {
     vector<Balde*> baldes;
 
     public:
-    Diretorio(int tamanhoBalde, int profundidadeGlobal);
+    Diretorio(int tamanhoBalde);
     ~Diretorio();
-    void inserir(string str);
+    void inserir(string pseudoChave);
     void buscar();
     void dividir();
     void duplicarDiretorio();
-    void setTamanhoBalde(int tamanhoBalde);
+    int binarioParaInteiro(int bits, string str);
 
 };

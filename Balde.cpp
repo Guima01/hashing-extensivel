@@ -6,8 +6,8 @@
 
 using namespace std;
 
-Balde::Balde(int tamanhoBalde,int profundidade){
-    this->profundidadeLocal = profundidade;
+Balde::Balde(int tamanhoBalde){
+    this->profundidadeLocal = 1;
     this->posicoesUsadas = 0;
     this->pseudoChaves;
 }

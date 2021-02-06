@@ -4,24 +4,53 @@
 
 using namespace std;
 
-Diretorio::Diretorio(int tamanhoBalde, int profundidade){
+Diretorio::Diretorio(int tamanhoBalde)
+{
     this->tamanhoBalde = tamanhoBalde;
-    this->profundidadeGlobal = profundidade;
-    for(int i =0; i < 1<<profundidadeGlobal; i++){
-        this->baldes.push_back(new Balde(tamanhoBalde,profundidade));
+    this->profundidadeGlobal = 1;
+    Balde *balde = new Balde(tamanhoBalde);
+    for (int i = 0; i < 2; i++)
+    {
+        this->baldes.push_back(balde);
     }
 }
 
-Diretorio::~Diretorio(){}
+Diretorio::~Diretorio() {}
 
-void Diretorio::inserir(string str){}
+int Diretorio::binarioParaInteiro(int bits, string str)
+{
+    string aux = (str.substr(0, bits));
+    int num = atoi(aux.c_str());
+    int decValue = 0;
 
-void Diretorio::buscar(){}
+    int base = 1;
 
-void Diretorio::dividir(){}
+    int temp = num;
+    while (temp)
+    {
+        int lastDigit = temp % 10;
+        temp = temp / 10;
 
-void Diretorio::duplicarDiretorio(){}
+        decValue += lastDigit * base;
 
-void Diretorio::setTamanhoBalde(int tamanhoBalde){
-    this->tamanhoBalde = tamanhoBalde;
+        base = base * 2;
+    }
+
+    return decValue;
 }
+
+void Diretorio::inserir(string str)
+{
+    int pos = binarioParaInteiro(profundidadeGlobal, str);
+    baldes[pos]->setPseudoChave(str);
+}
+
+void Diretorio::buscar()
+{
+    cout << this->baldes[0]->getPseudoChave(5) << endl;
+    cout << this->baldes[1]->getPseudoChave(4);
+}
+
+void Diretorio::dividir() {}
+
+void Diretorio::duplicarDiretorio() {}

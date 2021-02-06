@@ -14,7 +14,7 @@ class Balde {
     vector<string> pseudoChaves;
     
     public:
-    Balde(int tamanhoBalde,int profundidade);
+    Balde(int tamanhoBalde);
     ~Balde();
     string getPseudoChave(int indice);
     void setPseudoChave(string pseudoChave);
