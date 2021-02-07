@@ -59,11 +59,11 @@ bool Diretorio::buscar(string str)
         cout<<baldes[pos]->getPseudoChave(i)<< " "<< str<<endl;
         if(baldes[pos]->getPseudoChave(i) == str){
             cout<< "pseudochave encontrada"<<endl;
-            return true
+            return true;
         }
     }
     cout<<"não tem a pseudochave";
-    return false
+    return false;
 }
 
 void Diretorio::dividir() {}
