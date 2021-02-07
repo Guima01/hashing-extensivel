@@ -21,6 +21,8 @@ class Balde {
     void setProfundidadeLocal(int profundidade);
     int getProfundidadeLocal();
     void setTamanhoBalde(int tamanhoBalde);
+    int getPosicoesUsadas();
+    void setPosicoesUsadas();
 
 };
 

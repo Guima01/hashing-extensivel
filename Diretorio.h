@@ -15,7 +15,7 @@ class Diretorio {
     Diretorio(int tamanhoBalde);
     ~Diretorio();
     void inserir(string pseudoChave);
-    void buscar();
+    void buscar(string str);
     void dividir();
     void duplicarDiretorio();
     int binarioParaInteiro(int bits, string str);

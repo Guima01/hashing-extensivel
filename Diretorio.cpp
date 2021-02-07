@@ -42,13 +42,28 @@ int Diretorio::binarioParaInteiro(int bits, string str)
 void Diretorio::inserir(string str)
 {
     int pos = binarioParaInteiro(profundidadeGlobal, str);
+    if(baldes[pos]->getPosicoesUsadas() == tamanhoBalde){
+        cout<<"ta lotado"<<endl;
+    }
+    else{
+    cout<<str<<endl;
+    baldes[pos]->setPosicoesUsadas();
     baldes[pos]->setPseudoChave(str);
+    }
 }
 
-void Diretorio::buscar()
+void Diretorio::buscar(string str)
 {
-    cout << this->baldes[0]->getPseudoChave(5) << endl;
-    cout << this->baldes[1]->getPseudoChave(4);
+    int pos = binarioParaInteiro(profundidadeGlobal, str);
+    bool verificaChave = false;
+    for(int i =0; i < tamanhoBalde; i++){
+        cout<<baldes[pos]->getPseudoChave(i)<< " "<< str<<endl;
+        if(baldes[pos]->getPseudoChave(i) == str){
+            cout<< "pseudochave encontrada"<<endl;
+            break;
+        }
+    }
+    cout<<"não tem a pseudochave";
 }
 
 void Diretorio::dividir() {}

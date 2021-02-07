@@ -18,7 +18,6 @@ string mod2(int bits)
         bit = bit % 2;
         pseudoChave.append(to_string(bit));
     }
-    cout << pseudoChave << endl;
     return pseudoChave;
 }
 
@@ -43,7 +42,7 @@ void menu(int bits, Diretorio diretorio)
                 string str = mod2(bits);
                 diretorio.inserir(str);
             }
-            diretorio.buscar();
+            diretorio.buscar("10001");
         }
         else if (seleciona == 2)
         {

@@ -26,4 +26,12 @@ void Balde::setProfundidadeLocal(int profundidade){
 } 
 int Balde::getProfundidadeLocal(){
     return this->profundidadeLocal;
-} 
+}
+
+int Balde::getPosicoesUsadas(){
+    return this->posicoesUsadas;
+}
+
+void Balde::setPosicoesUsadas(){
+    this->posicoesUsadas += 1;
+}
