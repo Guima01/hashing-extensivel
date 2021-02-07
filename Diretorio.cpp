@@ -52,18 +52,18 @@ void Diretorio::inserir(string str)
     }
 }
 
-void Diretorio::buscar(string str)
+bool Diretorio::buscar(string str)
 {
     int pos = binarioParaInteiro(profundidadeGlobal, str);
-    bool verificaChave = false;
     for(int i =0; i < tamanhoBalde; i++){
         cout<<baldes[pos]->getPseudoChave(i)<< " "<< str<<endl;
         if(baldes[pos]->getPseudoChave(i) == str){
             cout<< "pseudochave encontrada"<<endl;
-            break;
+            return true
         }
     }
     cout<<"não tem a pseudochave";
+    return false
 }
 
 void Diretorio::dividir() {}
