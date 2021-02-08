@@ -9,15 +9,16 @@ class Diretorio {
     private:
     int profundidadeGlobal;
     int tamanhoBalde;
-    vector<Balde*> baldes;
 
     public:
+    vector<Balde*> baldes;
     Diretorio(int tamanhoBalde);
     ~Diretorio();
     void inserir(string pseudoChave);
     bool buscar(string str);
-    void dividir();
+    void dividir(int pos, Balde *balde);
     void duplicarDiretorio();
     int binarioParaInteiro(int bits, string str);
+    string inteiroParaBinario(int bits,int n);
 
 };

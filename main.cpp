@@ -3,6 +3,7 @@
 #include <string>
 #include <stdlib.h>
 #include <time.h>
+#include <algorithm>
 #include "Balde.h"
 #include "Diretorio.h"
 
@@ -37,12 +38,16 @@ void menu(int bits, Diretorio diretorio)
         }
         else if (seleciona == 1)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 6; i++)
             {
                 string str = mod2(bits);
                 diretorio.inserir(str);
             }
-            diretorio.buscar("10001");
+            for(int i=0; i < diretorio.baldes.size(); i++){
+                for(int j=0; j < diretorio.baldes[i]->getPosicoesUsadas(); j++){
+                    cout<<"balde: "<<i<<" pseudoChave:"<<diretorio.baldes[i]->getPseudoChave(j)<<endl; 
+                }
+            }
         }
         else if (seleciona == 2)
         {
@@ -50,9 +55,9 @@ void menu(int bits, Diretorio diretorio)
     } while (seleciona != 0);
 }
 
+
 int main()
 {
-
     int M;
     int B;
     srand(time(NULL));
