@@ -48,6 +48,8 @@ void menu(int bits, Diretorio diretorio)
                     cout<<"balde: "<<i<<" pseudoChave:"<<diretorio.baldes[i]->getPseudoChave(j)<<endl; 
                 }
             }
+            diretorio.duplicarDiretorio(diretorio.baldes[1]);
+
         }
         else if (seleciona == 2)
         {

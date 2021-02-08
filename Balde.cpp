@@ -11,7 +11,6 @@ Balde::Balde(int tamanhoBalde)
     this->tamanhoBalde = tamanhoBalde;
     this->profundidadeLocal = 0;
     this->posicoesUsadas = 0;
-    this->pseudoChaves;
 }
 
 Balde::~Balde() {}
@@ -53,4 +52,10 @@ void Balde::setPosicoesUsadas()
 void Balde::removePosicoesUsadas()
 {
     this->posicoesUsadas -= 1;
+}
+void Balde::esvaziaBalde()
+{
+    this->pseudoChaves.clear();
+    this->posicoesUsadas = 0;
+    cout<< pseudoChaves.size();
 }

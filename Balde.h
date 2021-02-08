@@ -6,15 +6,16 @@
 
 using namespace std;
 
-class Balde {
+class Balde
+{
 
     private:
     int tamanhoBalde;
     int profundidadeLocal;
     int posicoesUsadas;
-    vector<string> pseudoChaves;
-    
+
     public:
+    vector<string> pseudoChaves;
     vector<int> positions;
     Balde(int tamanhoBalde);
     ~Balde();
@@ -27,7 +28,7 @@ class Balde {
     int getPosicoesUsadas();
     void setPosicoesUsadas();
     void removePosicoesUsadas();
-
+    void esvaziaBalde();
 };
 
 #endif
