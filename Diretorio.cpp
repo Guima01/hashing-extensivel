@@ -191,33 +191,25 @@ void Diretorio::duplicarDiretorio(Balde *balde)
             novoBalde->pseudoChaves.push_back(balde->pseudoChaves[i]);
             novoBalde->setPosicoesUsadas();
         }
-    }
-
-    for (int i = 1; i < balde->getPosicoesUsadas(); i++)
-    {
-        if (auxiliar != balde->pseudoChaves[i].substr(0, balde->getProfundidadeLocal()))
+        else
         {
             novoBalde2->pseudoChaves.push_back(balde->pseudoChaves[i]);
             novoBalde2->setPosicoesUsadas();
         }
     }
-    /*for (int i = 0, j=1; j < novoBalde2->getPosicoesUsadas(); j++)
+    vector<Balde *> vectorBaldeAux;
+    vectorBaldeAux.push_back(novoBalde);
+    vectorBaldeAux.push_back(novoBalde2);
+
+    std::vector<Balde *>::iterator it = find(vectorBaldeAux.begin(), vectorBaldeAux.end(), baldes[0]);
+
+    delete balde;
+    for (int i = 0; i < baldes.size(); i++)
     {
-        cout<<auxiliar<<" "<<balde->getPseudoChave(j).substr(0, balde->getProfundidadeLocal())<<endl;
-        if (auxiliar != balde->getPseudoChave(j).substr(0, balde->getProfundidadeLocal()))
-        {
-            novoBalde2->removePseudoChave(i);
-            novoBalde2->removePosicoesUsadas();
+        it = find(vectorBaldeAux.begin(), vectorBaldeAux.end(), baldes[i]);
+        if(baldes[i] != balde && it == vectorBaldeAux.end() && baldes[i] != nullptr){
+            vectorBaldeAux.push_back(baldes[i]);
         }
-        else{
-            i++;
-        }
-    }*/
-    /*for (int i = 0; i < baldes[i]->getPosicoesUsadas(); i++)
-    {
-        baldes[i]->positions.clear();
-        for (int j = 0; j < baldes.size(); j++)
-        {
-        }
-    }*/
+    }
+    cout<<vectorBaldeAux.size();
 }
