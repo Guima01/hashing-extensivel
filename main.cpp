@@ -38,10 +38,16 @@ void menu(int bits, Diretorio diretorio)
         }
         else if (seleciona == 1)
         {
-            for (int i = 0; i < 13; i++)
+            vector<string> teste;
+            for (int i = 0; i < 15; i++)
             {
                 string str = mod2(bits);
-                diretorio.inserir(str);
+                cout<<"value: "<<str;
+                teste.push_back(str);
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                diretorio.inserir(teste[i]);
             }
             for (int i = 0; i < diretorio.baldes.size(); i++)
             {
