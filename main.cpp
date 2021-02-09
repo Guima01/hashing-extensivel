@@ -38,25 +38,28 @@ void menu(int bits, Diretorio diretorio)
         }
         else if (seleciona == 1)
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 13; i++)
             {
                 string str = mod2(bits);
                 diretorio.inserir(str);
             }
-            for(int i=0; i < diretorio.baldes.size(); i++){
-                for(int j=0; j < diretorio.baldes[i]->getPosicoesUsadas(); j++){
-                    cout<<"balde: "<<i<<" pseudoChave:"<<diretorio.baldes[i]->getPseudoChave(j)<<endl; 
+            for (int i = 0; i < diretorio.baldes.size(); i++)
+            {
+                cout<<"profLocal: "<<diretorio.baldes[i]->getProfundidadeLocal()<<endl;
+                if (diretorio.baldes[i] != nullptr)
+                {
+                    for (int j = 0; j < diretorio.baldes[i]->getPosicoesUsadas(); j++)
+                    {
+                        cout << "diretorio posicao: " << i << " pseudoChave:" << diretorio.baldes[i]->getPseudoChave(j) << endl;
+                    }
                 }
             }
-            diretorio.duplicarDiretorio(diretorio.baldes[1]);
-
         }
         else if (seleciona == 2)
         {
         }
     } while (seleciona != 0);
 }
-
 
 int main()
 {
@@ -67,7 +70,7 @@ int main()
     cin >> M;
     cout << "digita os bits ai:";
     cin >> B;
-    Diretorio diretorio(M);
-    menu(B,diretorio);
+    Diretorio diretorio(M,B);
+    menu(B, diretorio);
     return 0;
 }

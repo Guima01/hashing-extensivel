@@ -7,12 +7,13 @@ using namespace std;
 class Diretorio {
 
     private:
+    int bitsMax;
     int profundidadeGlobal;
     int tamanhoBalde;
 
     public:
     vector<Balde*> baldes;
-    Diretorio(int tamanhoBalde);
+    Diretorio(int tamanhoBalde, int bits);
     ~Diretorio();
     void inserir(string pseudoChave);
     bool buscar(string str);

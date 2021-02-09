@@ -5,8 +5,9 @@
 
 using namespace std;
 
-Diretorio::Diretorio(int tamanhoBalde)
+Diretorio::Diretorio(int tamanhoBalde, int bits)
 {
+    this->bitsMax = bits;
     this->tamanhoBalde = tamanhoBalde;
     this->profundidadeGlobal = 1;
     Balde *balde = new Balde(tamanhoBalde);
@@ -67,19 +68,21 @@ void Diretorio::inserir(string str)
     {
         if (this->profundidadeGlobal > baldes[pos]->getProfundidadeLocal())
         {
-            cout << "realizando divisão do balde" << endl;
+            cout << "realizando divisao do balde" << endl;
             dividir(baldes[pos]);
             inserir(str);
         }
-        else if (this->profundidadeGlobal == baldes[pos]->getProfundidadeLocal())
+        else if (this->profundidadeGlobal == baldes[pos]->getProfundidadeLocal() && this->profundidadeGlobal < this->bitsMax)
         {
+            //cout << "duplicando diretorio" << endl;
+            //duplicarDiretorio(baldes[pos]);
+            //inserir(str);
         }
     }
     else
     {
-        cout << "inserindo" << endl;
-        baldes[pos]->setPosicoesUsadas();
         baldes[pos]->setPseudoChave(str);
+        baldes[pos]->setPosicoesUsadas();
     }
 }
 
@@ -101,7 +104,7 @@ bool Diretorio::buscar(string str)
 void Diretorio::dividir(Balde *balde)
 {
     vector<int> temp;
-    balde->setProfundidadeLocal(balde->getProfundidadeLocal());
+    balde->setProfundidadeLocal();
     Balde *novoBalde = new Balde(tamanhoBalde);
     Balde *novoBalde2 = new Balde(tamanhoBalde);
     *novoBalde = *balde;
@@ -114,13 +117,10 @@ void Diretorio::dividir(Balde *balde)
         if (i < balde->positions.size() / 2)
         {
             novoBalde->positions.push_back(balde->positions[i]);
-            cout << novoBalde2->positions[0];
         }
         else
         {
             novoBalde2->positions.push_back(balde->positions[i]);
-            cout << novoBalde2->positions[0];
-            cout << novoBalde2->positions.size();
         }
     }
     for (int i = 0; i < novoBalde->positions.size(); i++)
@@ -130,6 +130,7 @@ void Diretorio::dividir(Balde *balde)
         baldes[pos] = novoBalde;
         baldes[pos2] = novoBalde2;
     }
+
     for (int i = 0; i < novoBalde->getPosicoesUsadas();)
     {
         string aux = (novoBalde->getPseudoChave(i).substr(0, novoBalde->getProfundidadeLocal()));
@@ -165,19 +166,11 @@ void Diretorio::dividir(Balde *balde)
 void Diretorio::duplicarDiretorio(Balde *balde)
 {
     this->profundidadeGlobal = profundidadeGlobal + 1;
-    balde->setProfundidadeLocal(balde->getProfundidadeLocal());
+    balde->setProfundidadeLocal();
     Balde *novoBalde = new Balde(tamanhoBalde);
     Balde *novoBalde2 = new Balde(tamanhoBalde);
-    *novoBalde = *balde;
-    *novoBalde2 = *balde;
-    novoBalde->positions.clear();
-    novoBalde->pseudoChaves.clear();
-    novoBalde2->positions.clear();
-    novoBalde2->pseudoChaves.clear();
-    for (int i = 0; i < 1 << (profundidadeGlobal - 1); i++)
-    {
-        this->baldes.push_back(nullptr);
-    }
+    novoBalde->recebeProfundidade(balde->getProfundidadeLocal());
+    novoBalde2->recebeProfundidade(balde->getProfundidadeLocal());
 
     string auxiliar = balde->getPseudoChave(0);
     novoBalde->setPseudoChave(auxiliar);
@@ -201,15 +194,37 @@ void Diretorio::duplicarDiretorio(Balde *balde)
     vectorBaldeAux.push_back(novoBalde);
     vectorBaldeAux.push_back(novoBalde2);
 
-    std::vector<Balde *>::iterator it = find(vectorBaldeAux.begin(), vectorBaldeAux.end(), baldes[0]);
+    std::vector<Balde *>::iterator it;
 
-    delete balde;
     for (int i = 0; i < baldes.size(); i++)
     {
         it = find(vectorBaldeAux.begin(), vectorBaldeAux.end(), baldes[i]);
-        if(baldes[i] != balde && it == vectorBaldeAux.end() && baldes[i] != nullptr){
+        if (baldes[i] != balde && it == vectorBaldeAux.end())
+        {
             vectorBaldeAux.push_back(baldes[i]);
         }
     }
-    cout<<vectorBaldeAux.size();
+    for (int i = 0; i < 1 << (profundidadeGlobal - 1); i++)
+    {
+        this->baldes.push_back(nullptr);
+    }
+
+    for (int i = 0; i < vectorBaldeAux.size(); i++)
+    {
+        if (vectorBaldeAux[i]->pseudoChaves.size() != 0)
+        {
+            string bits = vectorBaldeAux[i]->pseudoChaves[0].substr(0, vectorBaldeAux[i]->getProfundidadeLocal());
+            for (int j = 0; j < baldes.size(); j++)
+            {
+                string str = inteiroParaBinario(profundidadeGlobal, j);
+                str = str.substr(0, vectorBaldeAux[i]->getProfundidadeLocal());
+                if (str == bits)
+                {
+                    cout << j << " " << vectorBaldeAux[i]->pseudoChaves[0] << " " << vectorBaldeAux[i]->getProfundidadeLocal() << " " << profundidadeGlobal << endl;
+                    vectorBaldeAux[i]->positions.push_back(j);
+                    baldes[j] = vectorBaldeAux[i];
+                }
+            }
+        }
+    }
 }

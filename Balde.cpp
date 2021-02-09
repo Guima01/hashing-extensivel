@@ -30,13 +30,17 @@ void Balde::removePseudoChave(int pos)
     this->pseudoChaves.erase(pseudoChaves.begin() + pos);
 }
 
-void Balde::setProfundidadeLocal(int profundidade)
+void Balde::setProfundidadeLocal()
 {
     this->profundidadeLocal = this->profundidadeLocal + 1;
 }
 int Balde::getProfundidadeLocal()
 {
     return this->profundidadeLocal;
+}
+void Balde::recebeProfundidade(int profundidade)
+{
+    this->profundidadeLocal = profundidade;
 }
 
 int Balde::getPosicoesUsadas()
@@ -57,5 +61,4 @@ void Balde::esvaziaBalde()
 {
     this->pseudoChaves.clear();
     this->posicoesUsadas = 0;
-    cout<< pseudoChaves.size();
 }

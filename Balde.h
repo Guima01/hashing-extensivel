@@ -22,8 +22,9 @@ class Balde
     string getPseudoChave(int indice);
     void setPseudoChave(string pseudoChave);
     void removePseudoChave(int pos);
-    void setProfundidadeLocal(int profundidade);
+    void setProfundidadeLocal();
     int getProfundidadeLocal();
+    void recebeProfundidade(int profundidade);
     void setTamanhoBalde(int tamanhoBalde);
     int getPosicoesUsadas();
     void setPosicoesUsadas();

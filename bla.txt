@@ -1,0 +1,60 @@
+void Diretorio::duplicarDiretorio(Balde *balde)
+{
+    this->profundidadeGlobal = profundidadeGlobal + 1;
+    balde->setProfundidadeLocal();
+    Balde *novoBalde = new Balde(tamanhoBalde);
+    Balde *novoBalde2 = new Balde(tamanhoBalde);
+    novoBalde->recebeProfundidade(balde->getProfundidadeLocal());
+    novoBalde2->recebeProfundidade(balde->getProfundidadeLocal());
+
+    string auxiliar = balde->getPseudoChave(0);
+    novoBalde->setPseudoChave(auxiliar);
+    novoBalde->setPosicoesUsadas();
+    auxiliar = auxiliar.substr(0, balde->getProfundidadeLocal());
+
+    for (int i = 1; i < balde->getPosicoesUsadas(); i++)
+    {
+        if (auxiliar == balde->pseudoChaves[i].substr(0, balde->getProfundidadeLocal()))
+        {
+            novoBalde->pseudoChaves.push_back(balde->pseudoChaves[i]);
+            novoBalde->setPosicoesUsadas();
+        }
+        else
+        {
+            novoBalde2->pseudoChaves.push_back(balde->pseudoChaves[i]);
+            novoBalde2->setPosicoesUsadas();
+        }
+    }
+    vector<Balde *> vectorBaldeAux;
+    vectorBaldeAux.push_back(novoBalde);
+    vectorBaldeAux.push_back(novoBalde2);
+
+    std::vector<Balde *>::iterator it = find(vectorBaldeAux.begin(), vectorBaldeAux.end(), baldes[0]);
+
+    *baldes[1] = *novoBalde;
+    /*for (int i = 0; i < baldes.size(); i++)
+    {
+        it = find(vectorBaldeAux.begin(), vectorBaldeAux.end(), baldes[i]);
+        if (baldes[i] != balde && it == vectorBaldeAux.end())
+        {
+            vectorBaldeAux.push_back(baldes[i]);
+        }
+    }*/
+    /*for (int i = 0; i < 1 << (profundidadeGlobal - 1); i++)
+    {
+        this->baldes.push_back(nullptr);
+    }*/
+    //for (int i = 0; i < vectorBaldeAux.size(); i++)
+    //{
+    /*string bits = vectorBaldeAux[i]->pseudoChaves[i].substr(0, vectorBaldeAux[i]->getProfundidadeLocal());
+        for (int j = 0; j < baldes.size(); j++)
+        {
+            string str = inteiroParaBinario(profundidadeGlobal, j);
+            str = str.substr(0, vectorBaldeAux[i]->getProfundidadeLocal());
+            if (str == bits){
+                vectorBaldeAux[i]->positions.push_back(j);
+                baldes[j] = vectorBaldeAux[i];
+            }
+        }*/
+    //}
+}
