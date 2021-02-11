@@ -42,10 +42,10 @@ void menu(int bits, Diretorio diretorio)
             for (int i = 0; i < 15; i++)
             {
                 string str = mod2(bits);
-                cout<<"value: "<<str;
+                //cout<<"value: "<<str<<endl;
                 teste.push_back(str);
             }
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 15; i++)
             {
                 diretorio.inserir(teste[i]);
             }
