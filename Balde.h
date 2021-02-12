@@ -14,9 +14,9 @@ class Balde
     int profundidadeLocal;
     int posicoesUsadas;
     string position;
+    vector<string> pseudoChaves;
 
     public:
-    vector<string> pseudoChaves;
     Balde(int tamanhoBalde);
     ~Balde();
     string getPseudoChave(int indice);

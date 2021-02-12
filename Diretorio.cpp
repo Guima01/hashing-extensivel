@@ -125,25 +125,25 @@ void Diretorio::dividir(Balde *balde, string pos)
     auxiliar = auxiliar.substr(0, novoBalde->getProfundidadeLocal());
     for (int i = 1; i < balde->getPosicoesUsadas(); i++)
     {
-        if (auxiliar == balde->pseudoChaves[i].substr(0, balde->getProfundidadeLocal()))
+        if (auxiliar == balde->getPseudoChave(i).substr(0, balde->getProfundidadeLocal()))
         {
-            novoBalde->pseudoChaves.push_back(balde->pseudoChaves[i]);
+            novoBalde->setPseudoChave(balde->getPseudoChave(i));
             novoBalde->setPosicoesUsadas();
         }
         else
         {
-            novoBalde2->pseudoChaves.push_back(balde->pseudoChaves[i]);
+            novoBalde2->setPseudoChave(balde->getPseudoChave(i));
             novoBalde2->setPosicoesUsadas();
         }
     }
 
     delete balde;
 
-    string bits1 = novoBalde->pseudoChaves[0].substr(0, novoBalde->getProfundidadeLocal());
+    string bits1 = novoBalde->getPseudoChave(0).substr(0, novoBalde->getProfundidadeLocal());
     string bits2 = "";
-    if (novoBalde2->pseudoChaves.size() > 0)
+    if (novoBalde2->getPosicoesUsadas() > 0)
     {
-        bits2 = novoBalde2->pseudoChaves[0].substr(0, novoBalde2->getProfundidadeLocal());
+        bits2 = novoBalde2->getPseudoChave(0).substr(0, novoBalde2->getProfundidadeLocal());
     }
 
     for (int i = 0; i < baldes.size(); i++)
@@ -207,14 +207,14 @@ void Diretorio::duplicarDiretorio(Balde *balde, string pos)
 
     for (int i = 1; i < balde->getPosicoesUsadas(); i++)
     {
-        if (auxiliar == balde->pseudoChaves[i].substr(0, balde->getProfundidadeLocal()))
+        if (auxiliar == balde->getPseudoChave(i).substr(0, balde->getProfundidadeLocal()))
         {
-            novoBalde->pseudoChaves.push_back(balde->pseudoChaves[i]);
+            novoBalde->setPseudoChave(balde->getPseudoChave(i));
             novoBalde->setPosicoesUsadas();
         }
         else
         {
-            novoBalde2->pseudoChaves.push_back(balde->pseudoChaves[i]);
+            novoBalde2->setPseudoChave(balde->getPseudoChave(i));
             novoBalde2->setPosicoesUsadas();
         }
     }
