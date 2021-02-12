@@ -13,10 +13,10 @@ class Balde
     int tamanhoBalde;
     int profundidadeLocal;
     int posicoesUsadas;
+    string position;
 
     public:
     vector<string> pseudoChaves;
-    vector<int> positions;
     Balde(int tamanhoBalde);
     ~Balde();
     string getPseudoChave(int indice);
@@ -30,6 +30,8 @@ class Balde
     void setPosicoesUsadas();
     void removePosicoesUsadas();
     void esvaziaBalde();
+    string getPosition();
+    void setPosition(string position);
 };
 
 #endif

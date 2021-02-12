@@ -11,6 +11,7 @@ Balde::Balde(int tamanhoBalde)
     this->tamanhoBalde = tamanhoBalde;
     this->profundidadeLocal = 0;
     this->posicoesUsadas = 0;
+    this->position = "";
 }
 
 Balde::~Balde() {}
@@ -20,6 +21,15 @@ string Balde::getPseudoChave(int indice)
     return this->pseudoChaves[indice];
 }
 
+string Balde::getPosition()
+{
+    return this->position;
+}
+
+void Balde::setPosition(string position)
+{
+    this->position = position;
+}
 void Balde::setPseudoChave(string pseudoChave)
 {
     this->pseudoChaves.push_back(pseudoChave);
