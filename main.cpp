@@ -38,7 +38,7 @@ void imprimeDiretorio(Diretorio diretorio)
         }
         else
         {
-            cout << "essa posicao nao possui pseudoChaves" << endl;
+            cout << "diretorio posicao " << i << ": nao possui pseudoChaves" << endl;
             cout << endl;
         }
     }
