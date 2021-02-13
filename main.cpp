@@ -52,7 +52,7 @@ void menu(int bits, Diretorio diretorio)
         cout << "MENU" << endl;
         cout << "----" << endl;
         cout << "[1] Insercoes de 20 pseudo-chaves aleatorias" << endl;
-        cout << "[2] Insercoes de 20 pseudo-chaves iniciadas com um mesmo padrao de bits" << endl;
+        cout << "[2] Insercoes de 20 pseudo-chaves iniciadas com o bit 0" << endl;
         cout << "[0] Sair" << endl;
         cin >> seleciona;
         if (seleciona == 0)
