@@ -22,6 +22,28 @@ string mod2(int bits)
     return pseudoChave;
 }
 
+void imprimeDiretorio(Diretorio diretorio)
+{
+    for (int i = 0; i < diretorio.TamanhoDiretorio(); i++)
+    {
+        if (diretorio.getBalde(i).getPosicoesUsadas() > 0)
+        {
+            cout << "balde com bits inicias: " << diretorio.getBalde(i).getPosition() << endl;
+            cout << "profLocal: " << diretorio.getBalde(i).getProfundidadeLocal() << endl;
+            for (int j = 0; j < diretorio.getBalde(i).getPosicoesUsadas(); j++)
+            {
+                cout << "diretorio posicao " << i << " : pseudoChave:" << diretorio.getBalde(i).getPseudoChave(j) << endl;
+            }
+            cout << endl;
+        }
+        else
+        {
+            cout << "essa posicao nao possui pseudoChaves" << endl;
+            cout << endl;
+        }
+    }
+}
+
 void menu(int bits, Diretorio diretorio)
 {
     int seleciona;
@@ -29,8 +51,9 @@ void menu(int bits, Diretorio diretorio)
     {
         cout << "MENU" << endl;
         cout << "----" << endl;
-        cout << "[1] Insercoes de N pseudo-chaves aleatorias" << endl;
-        cout << "[2] Insercoes de N pseudo-chaves iniciadas com um mesmo padrao de bits" << endl;
+        cout << "[1] Insercoes de 20 pseudo-chaves aleatorias" << endl;
+        cout << "[2] Insercoes de 20 pseudo-chaves iniciadas com um mesmo padrao de bits" << endl;
+        cout << "[0] Sair" << endl;
         cin >> seleciona;
         if (seleciona == 0)
         {
@@ -43,15 +66,7 @@ void menu(int bits, Diretorio diretorio)
                 string str = mod2(bits);
                 diretorio.inserir(str);
             }
-            for (int i = 0; i < diretorio.TamanhoDiretorio(); i++)
-            {
-                cout << "position: " << diretorio.getBalde(i).getPosition() << endl;
-                cout << "profLocal: " << diretorio.getBalde(i).getProfundidadeLocal() << endl;
-                for (int j = 0; j < diretorio.getBalde(i).getPosicoesUsadas(); j++)
-                {
-                    cout << "diretorio posicao: " << i << " pseudoChave:" << diretorio.getBalde(i).getPseudoChave(j) << endl;
-                }
-            }
+            imprimeDiretorio(diretorio);
         }
         else if (seleciona == 2)
         {
@@ -61,18 +76,7 @@ void menu(int bits, Diretorio diretorio)
                 str = str + mod2(bits - 1);
                 diretorio.inserir(str);
             }
-            for (int i = 0; i < diretorio.TamanhoDiretorio(); i++)
-            {
-                if (diretorio.TamanhoDiretorio())
-                {
-                    cout << "position: " << diretorio.getBalde(i).getPosition() << endl;
-                    cout << "profLocal: " << diretorio.getBalde(i).getProfundidadeLocal() << endl;
-                    for (int j = 0; j < diretorio.getBalde(i).getPosicoesUsadas(); j++)
-                    {
-                        cout << "diretorio posicao: " << i << " pseudoChave:" << diretorio.getBalde(i).getPseudoChave(j) << endl;
-                    }
-                }
-            }
+            imprimeDiretorio(diretorio);
         }
     } while (seleciona != 0);
 }

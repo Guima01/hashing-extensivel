@@ -19,6 +19,7 @@ Diretorio::Diretorio(int tamanhoBalde, int bits)
 
 Diretorio::~Diretorio() {}
 
+//transformação de número binario para inteiro
 int Diretorio::binarioParaInteiro(int bits, string str)
 {
     string aux = (str.substr(0, bits));
@@ -41,6 +42,7 @@ int Diretorio::binarioParaInteiro(int bits, string str)
     return decValue;
 }
 
+//transformação de um número inteiro para binário
 string Diretorio::inteiroParaBinario(int bits, int n)
 {
     string x;
@@ -60,20 +62,31 @@ string Diretorio::inteiroParaBinario(int bits, int n)
     return x;
 }
 
+//retorna certo balde através de um índice
+Balde Diretorio::getBalde(int indice)
+{
+    return *this->baldes[indice];
+}
+
+//retorna o tamanho do diretório
+int Diretorio::TamanhoDiretorio()
+{
+    return this->baldes.size();
+}
+
+//inserção das pseudoChaves
 void Diretorio::inserir(string str)
 {
     int pos = binarioParaInteiro(profundidadeGlobal, str);
     if (baldes[pos]->getPosicoesUsadas() == tamanhoBalde)
     {
-        if (this->profundidadeGlobal > baldes[pos]->getProfundidadeLocal())
+        if (this->profundidadeGlobal > baldes[pos]->getProfundidadeLocal()) //divide o balde
         {
-            //cout << "realizando divisao do balde" << endl;
             dividir(baldes[pos], str);
             inserir(str);
         }
-        else if (this->profundidadeGlobal == baldes[pos]->getProfundidadeLocal() && this->profundidadeGlobal < this->bitsMax)
+        else if (this->profundidadeGlobal == baldes[pos]->getProfundidadeLocal() && this->profundidadeGlobal < this->bitsMax) //duplica o diretório
         {
-            //cout << "duplicando diretorio" << endl;
             duplicarDiretorio(baldes[pos], str);
             inserir(str);
         }
@@ -85,15 +98,7 @@ void Diretorio::inserir(string str)
     }
 }
 
-Balde Diretorio::getBalde(int indice)
-{
-    return *this->baldes[indice];
-}
-
-int Diretorio::TamanhoDiretorio(){
-    return this->baldes.size();
-}
-
+//faz a busca de certa pseudoChave no diretório
 bool Diretorio::buscar(string str)
 {
     int pos = binarioParaInteiro(profundidadeGlobal, str);
@@ -109,6 +114,8 @@ bool Diretorio::buscar(string str)
     return false;
 }
 
+//divide o balde entre 2 novos baldes, realocando as pseudochaves 
+
 void Diretorio::dividir(Balde *balde, string pos)
 {
     balde->setProfundidadeLocal();
@@ -118,12 +125,13 @@ void Diretorio::dividir(Balde *balde, string pos)
     novoBalde2->recebeProfundidade(balde->getProfundidadeLocal());
     novoBalde->setPosition(balde->getPosition());
     novoBalde2->setPosition(balde->getPosition());
-    string auxiliar = balde->getPseudoChave(0);
 
+    
+    string auxiliar = balde->getPseudoChave(0);
     novoBalde->setPseudoChave(auxiliar);
     novoBalde->setPosicoesUsadas();
     auxiliar = auxiliar.substr(0, novoBalde->getProfundidadeLocal());
-    for (int i = 1; i < balde->getPosicoesUsadas(); i++)
+    for (int i = 1; i < balde->getPosicoesUsadas(); i++)               //separa as chaves entre os baldes 
     {
         if (auxiliar == balde->getPseudoChave(i).substr(0, balde->getProfundidadeLocal()))
         {
@@ -139,14 +147,14 @@ void Diretorio::dividir(Balde *balde, string pos)
 
     delete balde;
 
-    string bits1 = novoBalde->getPseudoChave(0).substr(0, novoBalde->getProfundidadeLocal());
+    string bits1 = novoBalde->getPseudoChave(0).substr(0, novoBalde->getProfundidadeLocal());        //pega uma substring para alocar corretamente o balde
     string bits2 = "";
-    if (novoBalde2->getPosicoesUsadas() > 0)
+    if (novoBalde2->getPosicoesUsadas() > 0)                                                          
     {
         bits2 = novoBalde2->getPseudoChave(0).substr(0, novoBalde2->getProfundidadeLocal());
     }
 
-    for (int i = 0; i < baldes.size(); i++)
+    for (int i = 0; i < baldes.size(); i++)                                           //percorre todo o diretório e verifica em quais posições os novos baldes devem estar
     {
         string str = inteiroParaBinario(profundidadeGlobal, i);
         str = str.substr(0, novoBalde->getProfundidadeLocal());
@@ -154,7 +162,7 @@ void Diretorio::dividir(Balde *balde, string pos)
         {
             baldes[i] = novoBalde;
             string position = inteiroParaBinario(profundidadeGlobal, i);
-            baldes[i]->setPosition(position.substr(0, baldes[i]->getProfundidadeLocal()));
+            baldes[i]->setPosition(position.substr(0, baldes[i]->getProfundidadeLocal()));              //armazena uma posição em binário no balde, e utilizando essa posição o balde será alocado corretamente no diretório
         }
         else if (str == bits2)
         {
@@ -163,7 +171,7 @@ void Diretorio::dividir(Balde *balde, string pos)
             baldes[i]->setPosition(position.substr(0, baldes[i]->getProfundidadeLocal()));
         }
     }
-    for (int i = 0; i < baldes.size(); i++)
+    for (int i = 0; i < baldes.size(); i++)                                     //trata o caso em que um dos novosbaldes é vazio 
     {
         if (baldes[i] == balde)
         {
@@ -174,6 +182,8 @@ void Diretorio::dividir(Balde *balde, string pos)
     }
 }
 
+
+//duplica o diretório o balde e ajusta todos os baldes
 void Diretorio::duplicarDiretorio(Balde *balde, string pos)
 {
     this->profundidadeGlobal = profundidadeGlobal + 1;
@@ -191,8 +201,8 @@ void Diretorio::duplicarDiretorio(Balde *balde, string pos)
     novoBalde->setPseudoChave(auxiliar);
     novoBalde->setPosicoesUsadas();
     auxiliar = auxiliar.substr(0, balde->getProfundidadeLocal());
-    novoBalde->setPosition(auxiliar);
-    if (auxiliar[auxiliar.size() - 1] == '0')
+    novoBalde->setPosition(auxiliar);   
+    if (auxiliar[auxiliar.size() - 1] == '0')                       //armazena uma posição em binário no balde, e utilizando essa posição o balde será alocado corretamente no diretório
     {
         auxiliar2 = auxiliar;
         auxiliar2[auxiliar2.size() - 1] = '1';
@@ -205,7 +215,7 @@ void Diretorio::duplicarDiretorio(Balde *balde, string pos)
         novoBalde2->setPosition(auxiliar2);
     }
 
-    for (int i = 1; i < balde->getPosicoesUsadas(); i++)
+    for (int i = 1; i < balde->getPosicoesUsadas(); i++)               //separa as chaves entre os baldes 
     {
         if (auxiliar == balde->getPseudoChave(i).substr(0, balde->getProfundidadeLocal()))
         {
@@ -226,7 +236,7 @@ void Diretorio::duplicarDiretorio(Balde *balde, string pos)
     std::vector<Balde *>::iterator it;
     delete balde;
 
-    for (int i = 0; i < baldes.size(); i++)
+    for (int i = 0; i < baldes.size(); i++)             //utiliza de um vetor auxiliar para armazenar todos os diferentes baldes existentes para que haja uma futura realocação
     {
         it = find(vectorBaldeAux.begin(), vectorBaldeAux.end(), baldes[i]);
         if ((baldes[i] != balde) && (it == vectorBaldeAux.end()))
@@ -235,12 +245,12 @@ void Diretorio::duplicarDiretorio(Balde *balde, string pos)
         }
     }
 
-    for (int i = 0; i < 1 << (profundidadeGlobal - 1); i++)
+    for (int i = 0; i < 1 << (profundidadeGlobal - 1); i++)            //duplica o tamanho do diretório
     {
         this->baldes.push_back(nullptr);
     }
 
-    for (int i = 0; i < vectorBaldeAux.size(); i++)
+    for (int i = 0; i < vectorBaldeAux.size(); i++)                 //ajusta todos os baldes para novas posições
     {
         for (int j = 0; j < baldes.size(); j++)
         {
