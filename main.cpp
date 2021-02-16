@@ -26,10 +26,10 @@ void imprimeDiretorio(Diretorio diretorio)
 {
     for (int i = 0; i < diretorio.TamanhoDiretorio(); i++)
     {
+        cout << "balde com bits inicias: " << diretorio.getBalde(i).getPosition() << endl;
+        cout << "profLocal: " << diretorio.getBalde(i).getProfundidadeLocal() << endl;
         if (diretorio.getBalde(i).getPosicoesUsadas() > 0)
         {
-            cout << "balde com bits inicias: " << diretorio.getBalde(i).getPosition() << endl;
-            cout << "profLocal: " << diretorio.getBalde(i).getProfundidadeLocal() << endl;
             for (int j = 0; j < diretorio.getBalde(i).getPosicoesUsadas(); j++)
             {
                 cout << "diretorio posicao " << i << " : pseudoChave:" << diretorio.getBalde(i).getPseudoChave(j) << endl;
